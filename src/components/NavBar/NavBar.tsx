@@ -9,7 +9,7 @@ const NavBar = () => {
 	const closeMobileMenu = () => setClick(false);
 
 	return (
-		<nav className={styles.navbar} onClick={(e) => e.stopPropagation()}>
+		<nav className={styles.navbar}>
 			<div className={styles.navContainer}>
 				<NavLink to="/" className={styles.navLogo} onClick={closeMobileMenu}>
 					DevTech Cards
@@ -36,6 +36,19 @@ const NavBar = () => {
 					</li>
 					<li className={styles.navItem}>
 						<NavLink
+							to="/cards"
+							className={({ isActive }) =>
+								isActive
+									? `${styles.navLinks} ${styles.active}`
+									: styles.navLinks
+							}
+							onClick={closeMobileMenu}
+						>
+							Cards
+						</NavLink>
+					</li>
+					<li className={styles.navItem}>
+						<NavLink
 							to="/about"
 							className={({ isActive }) =>
 								isActive
@@ -45,32 +58,6 @@ const NavBar = () => {
 							onClick={closeMobileMenu}
 						>
 							About
-						</NavLink>
-					</li>
-					<li className={styles.navItem}>
-						<NavLink
-							to="/blog"
-							className={({ isActive }) =>
-								isActive
-									? `${styles.navLinks} ${styles.active}`
-									: styles.navLinks
-							}
-							onClick={closeMobileMenu}
-						>
-							Blog
-						</NavLink>
-					</li>
-					<li className={styles.navItem}>
-						<NavLink
-							to="/contact"
-							className={({ isActive }) =>
-								isActive
-									? `${styles.navLinks} ${styles.active}`
-									: styles.navLinks
-							}
-							onClick={closeMobileMenu}
-						>
-							Contact
 						</NavLink>
 					</li>
 				</ul>
