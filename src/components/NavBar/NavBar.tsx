@@ -5,15 +5,20 @@ import styles from "./NavBar.module.css";
 const NavBar = () => {
 	const [click, setClick] = useState(false);
 
-	const handleClick = () => setClick(!click);
+	const handleClick = () => setClick((prev) => !prev);
 	const closeMobileMenu = () => setClick(false);
+
+	const navItems = [
+		{ path: "/", label: "Home" },
+		{ path: "/cards", label: "Cards" },
+		{ path: "/about", label: "About" },
+	];
 
 	return (
 		<nav className={styles.navbar}>
 			<div className={styles.navContainer}>
 				<NavLink to="/" className={styles.navLogo} onClick={closeMobileMenu}>
-					DevTech Cards
-					<i className="fas fa-code" />
+					DevTech Cards <i className="fas fa-code" />
 				</NavLink>
 
 				<ul
@@ -21,52 +26,29 @@ const NavBar = () => {
 						click ? `${styles.navMenu} ${styles.active}` : styles.navMenu
 					}
 				>
-					<li className={styles.navItem}>
-						<NavLink
-							to="/"
-							className={({ isActive }) =>
-								isActive
-									? `${styles.navLinks} ${styles.active}`
-									: styles.navLinks
-							}
-							onClick={closeMobileMenu}
-						>
-							Home
-						</NavLink>
-					</li>
-					<li className={styles.navItem}>
-						<NavLink
-							to="/cards"
-							className={({ isActive }) =>
-								isActive
-									? `${styles.navLinks} ${styles.active}`
-									: styles.navLinks
-							}
-							onClick={closeMobileMenu}
-						>
-							Cards
-						</NavLink>
-					</li>
-					<li className={styles.navItem}>
-						<NavLink
-							to="/about"
-							className={({ isActive }) =>
-								isActive
-									? `${styles.navLinks} ${styles.active}`
-									: styles.navLinks
-							}
-							onClick={closeMobileMenu}
-						>
-							About
-						</NavLink>
-					</li>
+					{navItems.map((item) => (
+						<li key={item.path} className={styles.navItem}>
+							<NavLink
+								to={item.path}
+								className={({ isActive }) =>
+									isActive
+										? `${styles.navLinks} ${styles.active}`
+										: styles.navLinks
+								}
+								onClick={closeMobileMenu}
+								end
+							>
+								{item.label}
+							</NavLink>
+						</li>
+					))}
 				</ul>
 
 				<button
 					type="button"
 					className={styles.navIcon}
 					onClick={handleClick}
-					aria-label="Toggle navigation menu"
+					aria-label={click ? "Close navigation menu" : "Open navigation menu"}
 				>
 					<i className={click ? "fas fa-times" : "fas fa-bars"} />
 				</button>
