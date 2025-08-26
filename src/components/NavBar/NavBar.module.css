@@ -33,6 +33,13 @@
 	gap: var(--space-2);
 }
 
+.logo {
+	height: 2.5em;
+	width: auto;
+	margin-left: var(--space-2);
+	object-fit: contain;
+}
+
 .navMenu {
 	display: flex;
 	list-style: none;
@@ -126,6 +133,91 @@
 		position: absolute;
 		top: 50%;
 		right: var(--space-6);
+		transform: translateY(-50%);
+	}
+
+	@media screen and (min-width: 960px) {
+		.logo {
+			height: 28px;
+		}
+	}
+}
+
+.navIcon {
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 25px;
+	height: 20px;
+	cursor: pointer;
+	background: none;
+	border: none;
+	padding: 0;
+}
+
+.navIcon span {
+	display: block;
+	height: 3px;
+	width: 100%;
+	background: hsl(var(--color-primary));
+	border-radius: 2px;
+	transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 960px) {
+	.navContainer {
+		justify-content: space-between;
+		position: relative;
+	}
+
+	.navMenu {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		position: absolute;
+		top: 80px;
+		left: -110%;
+		opacity: 1;
+		transition: all 0.5s ease;
+		background-color: hsl(var(--color-card));
+		border-top: 1px solid hsl(var(--color-border));
+		padding: var(--space-4) 0;
+	}
+
+	.navMenu.active {
+		left: 0;
+		opacity: 1;
+		transition: all 0.5s ease;
+		z-index: 1;
+	}
+
+	.navLinks {
+		padding: var(--space-4);
+		width: 100%;
+		display: table;
+		text-align: center;
+	}
+
+	.navLinks.active {
+		border-bottom: none;
+		background-color: hsl(var(--color-muted));
+	}
+
+	/* bouton burger */
+	.navIcon {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 25px;
+		height: 20px;
+		cursor: pointer;
+		background: none;
+		border: none;
+		padding: 0;
+
+		position: absolute;
+		top: 50%;
+		right: var(--space-4);
 		transform: translateY(-50%);
 	}
 }

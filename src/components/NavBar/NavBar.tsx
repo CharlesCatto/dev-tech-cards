@@ -1,12 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./NavBar.module.css";
-
+import logo from "../../assets/logo.png";
 const NavBar = () => {
 	const [click, setClick] = useState(false);
+	const navRef = useRef<HTMLDivElement>(null);
 
 	const handleClick = () => setClick((prev) => !prev);
 	const closeMobileMenu = () => setClick(false);
+
+	useEffect(() => {
+		const handleOutsideClick = (event: MouseEvent) => {
+			if (navRef.current && !navRef.current.contains(event.target as Node)) {
+				setClick(false);
+			}
+		};
+
+		if (click) {
+			document.addEventListener("mousedown", handleOutsideClick);
+		} else {
+			document.removeEventListener("mousedown", handleOutsideClick);
+		}
+
+		return () => {
+			document.removeEventListener("mousedown", handleOutsideClick);
+		};
+	}, [click]);
 
 	const navItems = [
 		{ path: "/", label: "Home" },
@@ -16,9 +35,11 @@ const NavBar = () => {
 
 	return (
 		<nav className={styles.navbar}>
-			<div className={styles.navContainer}>
+			<div className={styles.navContainer} ref={navRef}>
 				<NavLink to="/" className={styles.navLogo} onClick={closeMobileMenu}>
-					DevTech Cards <i className="fas fa-code" />
+					DevTech Cards
+					<img src={logo} alt="logo of DevTech Cards" className={styles.logo} />
+					<i className="fas fa-code" />
 				</NavLink>
 
 				<ul
@@ -46,11 +67,13 @@ const NavBar = () => {
 
 				<button
 					type="button"
-					className={styles.navIcon}
+					className={`${styles.navIcon} ${click ? styles.open : ""}`}
 					onClick={handleClick}
-					aria-label={click ? "Close navigation menu" : "Open navigation menu"}
+					aria-label={click ? "Fermer le menu" : "Ouvrir le menu"}
 				>
-					<i className={click ? "fas fa-times" : "fas fa-bars"} />
+					<span />
+					<span />
+					<span />
 				</button>
 			</div>
 		</nav>
